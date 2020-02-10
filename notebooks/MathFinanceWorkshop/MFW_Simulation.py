@@ -32,7 +32,7 @@ class MFW_Simulation:
             St[i+1] = St[i] * np.exp( (mu - 0.5*sigma*sigma) *dt + np.sqrt(dt)*sigma*np.random.normal() )
         return St
     
-    def tradingStrategy(self,St,Wt,Bt,delta_t):
+    def tradingStrategy(self,delta_t,Bt,Wt,St):
         changeInDelta = 1
         return changeInDelta
     
@@ -51,7 +51,7 @@ class MFW_Simulation:
         Wt[0] = delta_t[0]*St[0] + Bt[0]
         for i in range(self.timeSteps):
             
-            changeInDelta=self.tradingStrategy(St[0:i+1],Wt[0:i+1],Bt[0:i+1],delta_t[0:i+1])
+            changeInDelta=self.tradingStrategy(delta_t[0:i+1],Bt[0:i+1],Wt[0:i+1],St[0:i+1])
             changeInDelta=max(-1,min(1,changeInDelta))
             
             if delta_t[i] + changeInDelta < 0.:
